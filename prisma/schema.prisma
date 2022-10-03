@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type PriceSchema {
+  keys  Int   @default(0)
+  metal Float @default(0)
+}
+
+type PricesPrice {
+  buy  PriceSchema
+  sell PriceSchema
+}
+
+model items {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  sku             String
+  name            String
+  quality         Int
+  defindex        Int
+  craftable       Int         @default(1)
+  australium      Int         @default(-1)
+  festive         Boolean     @default(false)
+  killstreak_tier Int         @default(0)
+  image_url       String      @default("")
+  image_url_large String      @default("")
+  price           PricesPrice
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @default(now()) @updatedAt
+
+  @@unique([sku, name, quality, craftable, australium, killstreak_tier])
+}
