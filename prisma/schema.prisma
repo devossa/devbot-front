@@ -32,6 +32,7 @@ model items {
   price           PricesPrice
   created_at      DateTime    @default(now())
   updated_at      DateTime    @default(now()) @updatedAt
+  profit          Float?      @default(0)
 
   @@unique([sku, name, quality, craftable, australium, killstreak_tier])
 }
