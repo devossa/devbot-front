@@ -21,7 +21,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => (
       <Flex p="20px" w="95%" direction="column" maxW="1200px" mx="auto">
         {children}
       </Flex>
-      <Footer />
+      {/* <Footer /> */}
     </Flex>
   </Flex>
 );

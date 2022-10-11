@@ -42,7 +42,7 @@ const fetcher = async (
 export default function App({ Component, pageProps }) {
 	return (
 		<ChakraProvider theme={theme}>
-			<SWRConfig value={{ refreshInterval: 30 * 1000, fetcher }}>
+			<SWRConfig value={{ fetcher, focusThrottleInterval: 30 * 1000 }}>
 				<Component {...pageProps} />
 			</SWRConfig>
 		</ChakraProvider>

@@ -10,7 +10,7 @@ interface ItemCardProps {
 	showDate?: boolean
 }
 
-const strippedName = (item: ItemProps): string => {
+export const strippedName = (item: ItemProps): string => {
 	return item.name
 		.replace('Non-Craftable', '')
 		.replace('The', '')
@@ -23,7 +23,8 @@ export default ({ item, showDate = false }: ItemCardProps) => {
 
 	const copyName = useCallback((name: string) => {
 		const textArea = document.createElement('textarea')
-		textArea.value = name
+		// textArea.value = `!add item=${name}`
+		textArea.value = `item=${name}\n`
 		document.body.appendChild(textArea)
 		textArea.select()
 		try {
@@ -72,11 +73,9 @@ export default ({ item, showDate = false }: ItemCardProps) => {
 				)}
 				<a
 					target="_blank"
-					href={`https://backpack.tf/stats/${
-						QUALITIES[item.quality]
-					}/${strippedName(item)}/Tradable/${
-						item.craftable === 1 ? 'Craftable' : 'Non-Craftable'
-					}`}
+					href={`https://backpack.tf/stats/${QUALITIES[item.quality]
+						}/${strippedName(item)}/Tradable/${item.craftable === 1 ? 'Craftable' : 'Non-Craftable'
+						}`}
 				>
 					<Image src="icons/bptf.png" h="20px" />
 				</a>

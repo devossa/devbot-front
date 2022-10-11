@@ -30,10 +30,8 @@ export default () => {
 	const [sort, setSort] = useState({ by: 'created_at', asc: true })
 
 	const { data, isValidating, error } = useSWR(
-		`/items?${`sort=${!sort.asc ? sort.by : `-${sort.by}`}`}&${
-			search !== '' ? `search=${search}&` : ''
-		}${quality !== 'all' ? `quality=${quality}&` : ''}${
-			!isNaN(Number(query.page)) ? `page=${query.page}&` : ''
+		`/items?${`sort=${!sort.asc ? sort.by : `-${sort.by}`}`}&${search !== '' ? `search=${search}&` : ''
+		}${quality !== 'all' ? `quality=${quality}&` : ''}${!isNaN(Number(query.page)) ? `page=${query.page}&` : ''
 		}`,
 	)
 	const items = data?.data as ItemProps[]
@@ -46,7 +44,7 @@ export default () => {
 		if (query.hasOwnProperty('sort'))
 			setSort({
 				by: (query.sort as string).replace('-', ''),
-				asc: !(query.sort as string).startsWith('-'),
+				asc: (query.sort as string).startsWith('-'),
 			})
 	}, [query])
 
@@ -58,6 +56,7 @@ export default () => {
 				<>
 					<Flex my="20px">
 						<Input
+							flex={2}
 							placeholder="Search by name or sku"
 							value={search}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -74,6 +73,7 @@ export default () => {
 							mr="10px"
 						/>
 						<Select
+							flex={1}
 							value={quality}
 							onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
 								const newQuery = { ...query }
@@ -99,7 +99,7 @@ export default () => {
 								)
 							})}
 						</Select>
-						<InputGroup>
+						<InputGroup flex={1}>
 							<InputLeftAddon
 								onClick={() => {
 									setSort((old_state) => {
