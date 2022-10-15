@@ -11,11 +11,14 @@ interface ItemCardProps {
 }
 
 export const strippedName = (item: ItemProps): string => {
-	return item.name
-		.replace('Non-Craftable', '')
-		.replace('The', '')
-		.replace(QUALITIES[item.quality], '')
-		.trim()
+	let newName = item.name
+		.replace('Non-Craftable', '').trim()
+	if (!newName.startsWith('Taunt:'))
+		newName = newName
+			.replace('The', '')
+			.replace(QUALITIES[item.quality], '')
+			.trim()
+	return newName
 }
 
 export default ({ item, showDate = false }: ItemCardProps) => {
